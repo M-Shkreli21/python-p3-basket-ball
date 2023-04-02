@@ -182,3 +182,87 @@ def game_dict():
             ]
         }
     }
+   
+game = game_dict()
+home_players = game['home']['players']
+away_players = game['away']['players'] 
+home_team = game['home']['team_name']
+away_team = game['away']['team_name']
+home = game['home']
+away = game['away']
+
+
+def num_points_per_game(player_name):
+    for player in home_players:
+        if player['name'] == player_name:
+            return player['points_per_game']
+    for player in away_players:
+        if player['name'] == player_name:
+            return player['points_per_game']
+
+num_points_per_game("Darius Garland")
+num_points_per_game("Kristaps Porzingis")
+
+def player_age(player_name):
+    for player in home_players:
+        if player['name'] == player_name:
+            return player['age']
+    for player in away_players:
+        if player['name'] == player_name:
+            return player['age']
+
+player_age("Darius Garland")
+player_age("Kristaps Porzingis")
+
+def team_colors(team_name):
+    if team_name == home_team:
+        return game['home']['colors']
+    elif team_name == away_team:
+        return game['away']['colors']
+    
+team_colors("Cleveland Cavaliers")
+team_colors("Washington Wizards")
+
+def team_names():
+    return [home_team, away_team]
+
+def player_numbers(team_name):
+    if team_name == home_team:
+        numbers = [home_player['number'] for home_player in home_players]
+        return numbers
+    elif team_name == away_team:
+        numbers = [away_player['number'] for away_player in away_players]
+        return numbers
+        
+player_numbers("Cleveland Cavaliers")
+player_numbers("Washington Wizards")
+
+def player_stats(player_name):
+    for player in home_players:
+        if player['name'] == player_name:
+            return player
+    for player in away_players:
+        if player['name'] == player_name:
+            return player
+            
+player_stats("Darius Garland")
+player_stats("Kristaps Porzingis")
+
+def average_rebounds_by_shoe_brand():
+    brand_rebounds = {}
+    
+    for team in [home, away]:
+        for player in team['players']:
+            brand = player['shoe_brand']
+            rebounds = player['rebounds_per_game']
+                
+            if brand in brand_rebounds:
+                brand_rebounds[brand].append(rebounds)
+            else:
+                brand_rebounds[brand] = [rebounds]
+                
+    for brand in brand_rebounds:
+        average_rebounds = sum(brand_rebounds[brand]) / len(brand_rebounds[brand])
+        print(f"{brand}:  {average_rebounds:.2f}")
+
+average_rebounds_by_shoe_brand()
